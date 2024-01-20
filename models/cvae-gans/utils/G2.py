@@ -25,6 +25,7 @@ class RESBLOCK(nn.Module):
 class G2(nn.Module):
     def __init__(self,att_channels):
         super(G2,self).__init__()
+        self.att_channels = att_channels
         '''
         input size is 64x64
         '''
@@ -83,19 +84,44 @@ class G2(nn.Module):
             nn.BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True),
             nn.ReLU(True)
         )
-        
-    def forward(self,x):
-        x = self.block1(x)
-        x = self.dense_down1(x)
-        x = self.dense_down2(x)
-        x = self.dense_down3(x)
+        self.res1 = RESBLOCK(512)
+        self.block2 = nn.Sequential(
+            nn.Conv2d(17,17,kernel_size = 3,stride = 1,padding = 1),
+            nn.ReLU(True)
+        )
+        self.block3 = nn.Sequential(
+            nn.Conv2d(17,1,kernel_size = 3,stride = 1,padding = 1),
+            nn.Tanh()
+        )      
+    def forward(self,x_in,text_att):
+        x1 = self.block1(x_in)
+        x2 = self.dense_down1(x1)
+        x3 = self.dense_down2(x2)
+        x4 = self.dense_down3(x3)
+        text_att = text_att.view(-1,self.att_channels,1,1)
+        text_att = F.interpolate(text_att,size = [2,2],mode = 'nearest')
+        x = self.concat_attributes(torch.cat([x4,text_att],dim = 1))
+        x = self.res1(x)
+        x = self.dense_up1(x)
+        x = torch.cat([x,x3],dim = 1)
+        x = self.dense_up2(x)
+        x = torch.cat([x,x2],dim = 1)
+        x = self.dense_up3(x)
+        x = self.dense_up4(x)
+        x = self.dense_up5(x)
+        x = torch.concat([x,x_in],dim = 1)
+        '''
+        output is 17 x 64 x 64
+        '''
+        x = self.block2(x)
+        x = self.block3(x)
         return x
-        
-        
+               
 '''
 testing
 '''
+att = torch.randn(1,256)
 x = torch.randn(1,1,64,64)        
 g = G2(256)
-y = g(x)
+y = g(x,att)
 print(y.shape)
