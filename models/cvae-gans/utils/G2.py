@@ -116,12 +116,3 @@ class G2(nn.Module):
         x = self.block2(x)
         x = self.block3(x)
         return x
-               
-'''
-testing
-'''
-att = torch.randn(1,256)
-x = torch.randn(1,1,64,64)        
-g = G2(256)
-y = g(x,att)
-print(y.shape)

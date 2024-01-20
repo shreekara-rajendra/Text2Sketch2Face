@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 
-
-
 class layer(nn.Module):
     def __init__(self,in_channels,k):
         super(layer,self).__init__()
@@ -30,10 +28,4 @@ class layer(nn.Module):
         x = torch.cat((x_temp,x),dim = 1)
         return x
 
-'''
-testing
-l = layer(64)
-t1 = torch.randn((1,64,224,224))
-t2 = l(t1)
-print(t2.shape)
-'''    
+ 
