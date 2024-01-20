@@ -5,8 +5,6 @@ from dense_layer import  layer
 every dense layer outputs k feature maps
 k is the growth ratw
 '''
-
-
 class dense_block(nn.Module):
     def __init__(self,in_channels,num,k):
         '''
@@ -22,8 +20,3 @@ class dense_block(nn.Module):
         for layer in self.block_layers :
             x = layer(x)
         return x
-    
-t1 = torch.randn([1,64,16,16])
-dense1 = dense_block(64,6,32)
-t2 = dense1(t1)
-print(t2.shape)
