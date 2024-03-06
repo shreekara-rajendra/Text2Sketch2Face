@@ -22,9 +22,9 @@ class RESBLOCK(nn.Module):
     x = self.relu(x)
     return x
 
-class G2(nn.Module):
+class Generator(nn.Module):
     def __init__(self,att_channels):
-        super(G2,self).__init__()
+        super(Generator,self).__init__()
         self.att_channels = att_channels
         '''
         input size is 64x64

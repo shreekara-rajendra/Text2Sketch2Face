@@ -28,18 +28,25 @@ class Decoder(nn.Module):
         upsample(start_channels // 8,start_channels // 16),
     )
 
-    self.block = nn.Sequential(
+    self.mean = nn.Sequential(
         nn.Conv2d(in_channels = start_channels // 16,out_channels = sketch_channels,kernel_size = 3,stride = 1,padding = 1,bias =  False),
         nn.Tanh()
     )
+    self.logvar = nn.Sequential(
+        nn.Conv2d(in_channels = start_channels // 16,out_channels = sketch_channels,kernel_size = 3,stride = 1,padding = 1,bias =  False),
+    )
+    
 
   def forward(self,sketch_code,noise_code):
 
     sketch_code = sketch_code.view(-1,self.start_channels,4,4)
     sketch = self.upsampling_block(sketch_code)
-    real_sketch = self.block(sketch)
+    real_sketch_recon_mean = self.mean(sketch)
+    real_sketch_recon_logvar = self.logvar(sketch)
 
     noise_code = noise_code.view(-1,self.start_channels,4,4)
     noise = self.upsampling_block(noise_code)
-    fake_sketch = self.block(noise)
-    return real_sketch,fake_sketch
+    fake_sketch_mean = self.mean(noise)
+    fake_sketch_logvar = self.logvar(noise)
+    
+    return [real_sketch_recon_mean,real_sketch_recon_logvar],[fake_sketch_mean,fake_sketch_logvar]

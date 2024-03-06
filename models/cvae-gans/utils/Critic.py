@@ -4,9 +4,9 @@ import torch.nn.functional as F
 
 ## kernel_size mostly 4 for patch wise discriminator
 ## num->number of layers
-class D2(nn.Module):
-    def __init__(self,in_channels,num):
-        super(D2,self).__init__()
+class Critic(nn.Module):
+    def __init__(self,in_channels,num = 4):
+        super(Critic,self).__init__()
         self.layers = nn.ModuleList()
         self.layers.append(nn.Sequential(
             nn.Conv2d(in_channels,64,kernel_size = 4,stride = 2,padding = 2),
