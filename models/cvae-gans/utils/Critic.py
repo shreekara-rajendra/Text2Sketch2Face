@@ -5,7 +5,7 @@ import torch.nn.functional as F
 ## kernel_size mostly 4 for patch wise discriminator
 ## num->number of layers
 class Critic(nn.Module):
-    def __init__(self,in_channels,num):
+    def __init__(self,in_channels,num = 4):
         super(Critic,self).__init__()
         self.layers = nn.ModuleList()
         self.layers.append(nn.Sequential(

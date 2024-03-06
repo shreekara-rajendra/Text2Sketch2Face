@@ -23,7 +23,7 @@ class RESBLOCK(nn.Module):
     return x
 
 class Generator(nn.Module):
-    def __init__(self,att_channels = 256):
+    def __init__(self,att_channels):
         super(Generator,self).__init__()
         self.att_channels = att_channels
         '''
