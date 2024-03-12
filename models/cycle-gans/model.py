@@ -1,6 +1,7 @@
 import torch
-import torch.nn as nn 
-import torch.nn.functional as F 
+import torch.nn as nn
+import torch.nn.functional as F
+
 
 def conv_block(c_in, c_out, k_size=4, stride=2, pad=1, use_bn=True, transpose=False):
     module = []
@@ -11,6 +12,7 @@ def conv_block(c_in, c_out, k_size=4, stride=2, pad=1, use_bn=True, transpose=Fa
     if use_bn:
         module.append(nn.BatchNorm2d(c_out))
     return nn.Sequential(*module)
+
 
 class ResBlock(nn.Module):
     def __init__(self, channels):
@@ -24,7 +26,7 @@ class ResBlock(nn.Module):
 
 
 class Discriminator(nn.Module):
-    def __init__(self, channels=3, conv_dim=128):
+    def __init__(self, channels=3, conv_dim=64):
         super(Discriminator, self).__init__()
         self.conv1 = conv_block(channels, conv_dim, use_bn=False)
         self.conv2 = conv_block(conv_dim, conv_dim * 2)
@@ -50,7 +52,7 @@ class Discriminator(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, in_channels=3, out_channels=3, conv_dim=128):
+    def __init__(self, in_channels=3, out_channels=3, conv_dim=64):
         super(Generator, self).__init__()
         self.conv1 = conv_block(in_channels, conv_dim, k_size=5, stride=1, pad=2, use_bn=True)
         self.conv2 = conv_block(conv_dim, conv_dim * 2, k_size=3, stride=2, pad=1, use_bn=True)
@@ -69,12 +71,11 @@ class Generator(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        alpha = 0.2
-        x = F.leaky_relu(self.conv1(x), alpha)
-        x = F.leaky_relu(self.conv2(x), alpha)
-        x = F.leaky_relu(self.conv3(x), alpha)
-        x = F.leaky_relu(self.res4(x), alpha)
-        x = F.leaky_relu(self.conv5(x), alpha)
-        x = F.leaky_relu(self.conv6(x), alpha)
+        x = F.relu(self.conv1(x))
+        x = F.relu(self.conv2(x))
+        x = F.relu(self.conv3(x))
+        x = F.relu(self.res4(x))
+        x = F.relu(self.tconv5(x))
+        x = F.relu(self.tconv6(x))
         x = torch.tanh(self.conv7(x))
         return x
