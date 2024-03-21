@@ -1,0 +1,18 @@
+/* You can style your card component to your likings */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 8px 10px 2px #777;
+    transform: scale(1);
+    transition: all 0.5s;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10vw;
+    margin-top: 25vh;
+   
+  }
+  .card:hover {
+    box-shadow: 0 10px 20px 2px #777;
+    transform: scale(1.01);
+    transition: all 0.5s;
+  }
