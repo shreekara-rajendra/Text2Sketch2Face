@@ -1,0 +1,126 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color:#49D8F7;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color:white;
+}
+
+.back{
+    background-image: url(background.jpeg);
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.result{
+    background-color:#4ce3f7;
+}
+
+
+form {
+    /* 
+    background-color: #fff;
+    border-radius: 8px;*/
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    background: #0166C4;
+    background: -webkit-linear-gradient(to right, #0166C4,#0082E3);
+    background: linear-gradient(to right, #0166C4,#0082E3);
+    padding: 20px;
+    border-radius: 10px;
+    width: 40vw;
+    margin: 20px;
+    padding: 20px;
+    
+}
+
+label {
+    font-weight: bold;
+    width: 100px;
+}
+
+input[type="text"] {
+    width: 90%;
+    height: 60%;
+    padding: 10px 10px;
+    margin: 5px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input{
+    display: flex;
+    flex-direction:column;
+}
+
+button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0400ff, #4ce3f7);
+    border-radius: 20px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 17px;
+    padding: 0.6em 1.5em;
+   }
+   
+   button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+   }
+   
+   @keyframes pulse512 {
+    0% {
+     box-shadow: 0 0 0 0 #05bada66;
+    }
+   
+    70% {
+     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
+    }
+   
+    100% {
+     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
+    }
+   }
+
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.gif{
+    height: 600px;
+    width: 700px;
+}
+h1 {
+    color: black;
+    text-align: center;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 1000px;
+    top: 20%;
+  }
