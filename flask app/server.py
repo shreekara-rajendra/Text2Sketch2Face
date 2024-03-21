@@ -9,7 +9,6 @@ def load_ml_model():
     pass
 
 def process_face_attributes(attributes):
-    # This is a dummy implementation. Replace it with your actual image processing code.
     image = np.random.randint(0, 255, size=(224, 224, 3), dtype=np.uint8)
     return image
 
