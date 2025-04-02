@@ -14,3 +14,12 @@ This Flask-based application generates sketches from textual descriptions using 
 - Explores **CycleGAN, Pix2Pix, and supervised models** for sketch-to-face transformation.
 - Achieves the best results with **CycleGAN**, generating highly realistic facial images from sketches.
 
+## 🖼️ Sample Outputs
+
+### 🔹 Text-to-Sketch Generation  
+ 
+![Sketch](assets/T2S.jpeg)
+
+### 🔹 Sketch-to-Face Translation  
+
+![Face](assets/S2F.jpeg)
